@@ -54,6 +54,7 @@ const HomePage = () => {
         {userProfile && !loading && <ProfileInfo userProfile={userProfile} />}
         {/* <ProfileInfo userProfile={userProfile} /> */}
 
+        {/* 1:20:20 */}
         {repos.length > 0 && !loading && <Repos repos={repos} />}
         {loading && <Spinner />}
       </div>
