@@ -16,11 +16,11 @@ const HomePage = () => {
   // console.log('repos', repos)
   // console.log('loading', loading)
 
-  const getUserProfileAndRepos = useCallback(async () => {
+  const getUserProfileAndRepos = useCallback(async (username = 'Art-San') => {
     setLoading(true)
 
     try {
-      const userRes = await fetch('https://api.github.com/users/Art-San')
+      const userRes = await fetch(`https://api.github.com/users/${username}`)
 
       const userProfile = await userRes.json()
       setUserProfile(userProfile)
@@ -31,8 +31,6 @@ const HomePage = () => {
       // repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) //descending, recent first
 
       setRepos(repos)
-      console.log('userProfile', userProfile)
-      console.log('repos', repos)
 
       return { userProfile, repos }
     } catch (error) {
@@ -46,16 +44,32 @@ const HomePage = () => {
     getUserProfileAndRepos()
   }, [getUserProfileAndRepos])
 
+  const onSearch = async (e, username) => {
+    e.preventDefault()
+    setLoading(true)
+    setRepos([])
+    setUserProfile(null)
+
+    const { userProfile, repos } = await getUserProfileAndRepos(username)
+
+    setUserProfile(userProfile)
+    setRepos(repos)
+    setLoading(false)
+    // setSortType('recent')
+  }
+
   return (
     <div className="m-4">
-      <Search />
-      <SortRepos />
+      <Search onSearch={onSearch} />
+      {/* 1:39:20 */}
+      {repos.length > 0 && <SortRepos />}
+      {/* {repos.length > 0 && <SortRepos onSort={onSort} sortType={sortType} />} */}
       <div className="flex gap-4 flex-col lg:flex-row justify-center items-start">
         {userProfile && !loading && <ProfileInfo userProfile={userProfile} />}
         {/* <ProfileInfo userProfile={userProfile} /> */}
 
         {/* 1:20:20 */}
-        {repos.length > 0 && !loading && <Repos repos={repos} />}
+        {!loading && <Repos repos={repos} />}
         {loading && <Spinner />}
       </div>
     </div>

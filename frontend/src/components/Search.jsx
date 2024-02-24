@@ -7,7 +7,10 @@ const Search = ({ onSearch }) => {
   return (
     <form
       className="max-w-xl mx-auto p-2"
-      onSubmit={(e) => onSearch(e, username)}
+      onSubmit={(e) => {
+        onSearch(e, username)
+        setUsername('')
+      }}
     >
       <label
         htmlFor="default-search"
