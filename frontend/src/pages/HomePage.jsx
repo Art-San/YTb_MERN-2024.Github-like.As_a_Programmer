@@ -11,7 +11,7 @@ const HomePage = () => {
   const [repos, setRepos] = useState([])
   const [loading, setLoading] = useState(false)
 
-  // const [sortType, setSortType] = useState('recent')
+  const [sortType, setSortType] = useState('recent')
   // console.log('userProfile', userProfile)
   // console.log('repos', repos)
   // console.log('loading', loading)
@@ -28,7 +28,7 @@ const HomePage = () => {
       const repoRes = await fetch(userProfile.repos_url)
       const repos = await repoRes.json()
 
-      // repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) //descending, recent first
+      repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) //descending, recent first
 
       setRepos(repos)
 
@@ -55,15 +55,27 @@ const HomePage = () => {
     setUserProfile(userProfile)
     setRepos(repos)
     setLoading(false)
-    // setSortType('recent')
+    setSortType('recent')
+  }
+
+  const onSort = (sortType) => {
+    console.log('sortType', sortType)
+    if (sortType === 'recent') {
+      repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) //descending, recent first
+    } else if (sortType === 'stars') {
+      repos.sort((a, b) => b.stargazers_count - a.stargazers_count) //descending, most stars first
+    } else if (sortType === 'forks') {
+      repos.sort((a, b) => b.forks_count - a.forks_count) //descending, most forks first
+    }
+    setSortType(sortType)
+    setRepos([...repos])
   }
 
   return (
     <div className="m-4">
       <Search onSearch={onSearch} />
       {/* 1:39:20 */}
-      {repos.length > 0 && <SortRepos />}
-      {/* {repos.length > 0 && <SortRepos onSort={onSort} sortType={sortType} />} */}
+      {repos.length > 0 && <SortRepos onSort={onSort} sortType={sortType} />}
       <div className="flex gap-4 flex-col lg:flex-row justify-center items-start">
         {userProfile && !loading && <ProfileInfo userProfile={userProfile} />}
         {/* <ProfileInfo userProfile={userProfile} /> */}
