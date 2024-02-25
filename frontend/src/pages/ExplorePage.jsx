@@ -14,7 +14,13 @@ const ExplorePage = () => {
     setRepos([])
     try {
       const res = await fetch(
-        `https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc&per_page=10`
+        `https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc&per_page=10`,
+        {
+          headers: {
+            // 5000 запросов в час, так как есть ключ, но он действует до 02.03.24
+            authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY_7DAY}` // так нельзя делать, ключ все ровно попадет на фронт
+          }
+        }
       )
       const repos = await res.json()
       console.log('ExplorePage repos', repos.items)

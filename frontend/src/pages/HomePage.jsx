@@ -12,9 +12,6 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false)
 
   const [sortType, setSortType] = useState('recent')
-  // console.log('userProfile', userProfile)
-  // console.log('repos', repos)
-  // console.log('loading', loading)
 
   const getUserProfileAndRepos = useCallback(async (username = 'Art-San') => {
     setLoading(true)
@@ -22,7 +19,8 @@ const HomePage = () => {
     try {
       const userRes = await fetch(`https://api.github.com/users/${username}`, {
         headers: {
-          authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY_7DAY}`
+          // 5000 запросов в час, так как есть ключ, но он действует до 02.03.24
+          authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY_7DAY}` // так нельзя делать, ключ все ровно попадет на фронт
         }
       })
 
