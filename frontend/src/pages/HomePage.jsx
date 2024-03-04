@@ -18,10 +18,10 @@ const HomePage = () => {
 
     try {
       const userRes = await fetch(`https://api.github.com/users/${username}`, {
-        headers: {
-          // 5000 запросов в час, так как есть ключ, но он действует до 02.03.24
-          authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY_7DAY}` // так нельзя делать, ключ все ровно попадет на фронт
-        }
+        // headers: {
+        //   // 5000 запросов в час, так как есть ключ, но он действует до 02.03.24
+        //   // authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY_7DAY}` // так нельзя делать, ключ все ровно попадет на фронт
+        // }
       })
 
       const userProfile = await userRes.json()
