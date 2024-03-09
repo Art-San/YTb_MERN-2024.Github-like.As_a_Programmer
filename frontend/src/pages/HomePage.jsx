@@ -13,34 +13,40 @@ const HomePage = () => {
 
   const [sortType, setSortType] = useState('recent')
 
-  const getUserProfileAndRepos = useCallback(async (username = 'Art-San') => {
-    setLoading(true)
+  const getUserProfileAndRepos = useCallback(
+    async (username = 'burakorkmez') => {
+      setLoading(true)
 
-    try {
-      const userRes = await fetch(`https://api.github.com/users/${username}`, {
-        // headers: {
-        //   // 5000 запросов в час, так как есть ключ, но он действует до 02.03.24
-        //   // authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY_7DAY}` // так нельзя делать, ключ все ровно попадет на фронт
-        // }
-      })
+      try {
+        const userRes = await fetch(
+          `https://api.github.com/users/${username}`,
+          {
+            // headers: {
+            //   // 5000 запросов в час, так как есть ключ, но он действует до 02.03.24
+            //   // authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY_7DAY}` // так нельзя делать, ключ все ровно попадет на фронт
+            // }
+          }
+        )
 
-      const userProfile = await userRes.json()
-      setUserProfile(userProfile)
+        const userProfile = await userRes.json()
+        setUserProfile(userProfile)
 
-      const repoRes = await fetch(userProfile.repos_url)
-      const repos = await repoRes.json()
+        const repoRes = await fetch(userProfile.repos_url)
+        const repos = await repoRes.json()
 
-      repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) //descending, recent first
+        repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) //descending, recent first
 
-      setRepos(repos)
+        setRepos(repos)
 
-      return { userProfile, repos }
-    } catch (error) {
-      toast.error(error.message)
-    } finally {
-      setLoading(false)
-    }
-  }, [])
+        return { userProfile, repos }
+      } catch (error) {
+        toast.error(error.message)
+      } finally {
+        setLoading(false)
+      }
+    },
+    []
+  )
 
   useEffect(() => {
     getUserProfileAndRepos()
