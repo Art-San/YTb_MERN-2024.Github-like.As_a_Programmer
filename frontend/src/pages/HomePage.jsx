@@ -18,22 +18,13 @@ const HomePage = () => {
       setLoading(true)
 
       try {
-        const userRes = await fetch(
-          `https://api.github.com/users/${username}`,
-          {
-            // headers: {
-            //   // 5000 запросов в час, так как есть ключ, но он действует до 02.03.24
-            //   // authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY_30DAY}` // так нельзя делать, ключ все ровно попадет на фронт
-            // }
-          }
+        const res = await fetch(
+          `http://localhost:5000/api/users/profile/${username}`
         )
 
-        const userProfile = await userRes.json()
+        const { userProfile, repos } = await res.json()
+
         setUserProfile(userProfile)
-
-        const repoRes = await fetch(userProfile.repos_url)
-        const repos = await repoRes.json()
-
         repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) //descending, recent first
 
         setRepos(repos)
@@ -59,6 +50,7 @@ const HomePage = () => {
     setUserProfile(null)
 
     const { userProfile, repos } = await getUserProfileAndRepos(username)
+    console.log(2, 'userProfile', userProfile.avatar_url)
 
     setUserProfile(userProfile)
     setRepos(repos)
