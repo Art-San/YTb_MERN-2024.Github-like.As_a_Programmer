@@ -23,7 +23,7 @@ const HomePage = () => {
           {
             // headers: {
             //   // 5000 запросов в час, так как есть ключ, но он действует до 02.03.24
-            //   // authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY_7DAY}` // так нельзя делать, ключ все ровно попадет на фронт
+            //   // authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY_30DAY}` // так нельзя делать, ключ все ровно попадет на фронт
             // }
           }
         )
