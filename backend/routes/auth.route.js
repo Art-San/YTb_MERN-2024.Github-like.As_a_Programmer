@@ -3,10 +3,11 @@ import passport from 'passport'
 
 const router = express.Router()
 
-router.get('/login', (req, res) => {
-  console.log(process.env.CLIENT_BASE_URL)
-  res.send('You logger in')
-})
+// router.get('/login', (req, res) => {
+//   const resalt = req.isAuthenticated()
+//   console.log(1, 'res', resalt)
+//   res.send('You logger in')
+// })
 
 router.get(
   '/github',
@@ -38,6 +39,7 @@ router.get('/logout', (req, res) => {
 })
 
 export default router
+
 // import express from 'express'
 // import passport from 'passport'
 

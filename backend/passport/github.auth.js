@@ -27,7 +27,7 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, done) {
       const user = await User.findOne({ username: profile.username })
-      console.log(1, 'user', user)
+
       // signup
       if (!user) {
         const newUser = new User({
@@ -38,7 +38,7 @@ passport.use(
           likedProfiles: [],
           likedBy: []
         })
-        console.log(2, 'user', user)
+
         await newUser.save()
         done(null, newUser)
       } else {
