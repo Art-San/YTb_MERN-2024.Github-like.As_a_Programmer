@@ -14,17 +14,12 @@ const ExplorePage = () => {
     setRepos([])
     try {
       const res = await fetch(
-        `https://api.github.com/search/repositories?q=language:${language}&sort=stars&order=desc&per_page=10`,
-        {
-          headers: {
-            // 5000 запросов в час, так как есть ключ, но он действует до 02.03.24
-            authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY_30DAY}` // так нельзя делать, ключ все ровно попадет на фронт
-          }
-        }
+        `http://localhost:5000/api/explore/repos/${language}`
       )
-      const repos = await res.json()
-      console.log('ExplorePage repos', repos.items)
-      setRepos(repos.items)
+
+      const { repos } = await res.json()
+
+      setRepos(repos)
 
       setSelectedLanguage(language)
     } catch (error) {
@@ -88,43 +83,3 @@ const ExplorePage = () => {
   )
 }
 export default ExplorePage
-
-// const ExplorePage = () => {
-//   return (
-//     <div className="px-4">
-//       <div className="bg-glass max-w-2xl mx-auto rounded-md p-4">
-//         <h1 className="text-xl font-bold text-center">
-//           Explore Popular Repositories
-//         </h1>
-//         <div className="flex flex-wrap gap-2 my-2 justify-center">
-//           <img
-//             src="/javascript.svg"
-//             alt="JavaScript"
-//             className="h-11 sm:h-20 cursor-pointer"
-//           />
-//           <img
-//             src="/typescript.svg"
-//             alt="TypeScript logo"
-//             className="h-11 sm:h-20 cursor-pointer"
-//           />
-//           <img
-//             src="/c++.svg"
-//             alt="C++ logo"
-//             className="h-11 sm:h-20 cursor-pointer"
-//           />
-//           <img
-//             src="/python.svg"
-//             alt="Python logo"
-//             className="h-11 sm:h-20 cursor-pointer"
-//           />
-//           <img
-//             src="/java.svg"
-//             alt="Java logo"
-//             className="h-11 sm:h-20 cursor-pointer"
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-// export default ExplorePage

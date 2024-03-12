@@ -21,12 +21,11 @@ const HomePage = () => {
         const res = await fetch(
           `http://localhost:5000/api/users/profile/${username}`
         )
-
         const { userProfile, repos } = await res.json()
 
-        setUserProfile(userProfile)
         repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)) //descending, recent first
 
+        setUserProfile(userProfile)
         setRepos(repos)
 
         return { userProfile, repos }
