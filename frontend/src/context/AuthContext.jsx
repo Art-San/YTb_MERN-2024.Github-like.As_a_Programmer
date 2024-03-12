@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
+// 3:26:00
 export const AuthContext = createContext()
 
 // eslint-disable-next-line react-refresh/only-export-components
