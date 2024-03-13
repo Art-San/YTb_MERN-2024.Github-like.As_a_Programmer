@@ -1,5 +1,5 @@
 export async function ensureAuthenticated(req, res, next) {
-  console.log(1, 'req.path', req.path)
+  console.log(0, 'req.path', req.path)
   if (req.isAuthenticated()) {
     return next()
   }
