@@ -1,3 +1,4 @@
+// 3:51:30 закончил перед деплоем
 import { useState, useEffect, useCallback } from 'react'
 import ProfileInfo from '../components/ProfileInfo'
 import Repos from '../components/Repos'

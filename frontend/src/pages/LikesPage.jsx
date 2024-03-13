@@ -14,6 +14,7 @@ const LikesPage = () => {
           credentials: 'include'
         })
         const data = await res.json()
+
         if (data.error) throw new Error(data.error)
 
         setLikes(data.likedBy)
