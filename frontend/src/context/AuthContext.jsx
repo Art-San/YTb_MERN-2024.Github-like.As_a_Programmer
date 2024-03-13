@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
-// 3:26:00
+// 3:11:00
 export const AuthContext = createContext()
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -19,7 +19,7 @@ export const AuthContextProvider = ({ children }) => {
       try {
         const res = await fetch('/api/auth/check', { credentials: 'include' })
         const data = await res.json()
-        setAuthUser(data.user) // null or authenticated user object
+        setAuthUser(data.user) // null или аутентифицированный пользовательский объект
       } catch (error) {
         toast.error(error.message)
       } finally {

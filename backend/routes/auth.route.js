@@ -24,6 +24,16 @@ router.get(
   }
 )
 
+/*TODO: буду использовать для переадресации на предыдущий роут*/
+// app.get('/github/callback',
+//  passport.authenticate('github', { failureRedirect: '/login' }),
+//  function(req, res) {
+//     // Успешная аутентификация, перенаправление на сохраненный URL-адрес или домой, если не установлено.
+//     const redirectTo = req.session.returnTo || '/'
+//     delete req.session.returnTo; // Очищаем сохраненный URL после использования
+//     res.redirect(redirectTo);
+//  })
+
 router.get('/check', (req, res) => {
   if (req.isAuthenticated()) {
     res.send({ user: req.user })
