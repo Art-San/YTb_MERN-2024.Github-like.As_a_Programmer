@@ -1,11 +1,12 @@
 import express from 'express'
 import passport from 'passport'
+import {
+  check,
+  githubCallback,
+  logout
+} from '../controllers/auth.controller.js'
 
 const router = express.Router()
-
-router.get('/login', (req, res) => {
-  res.send({ user: null })
-})
 
 router.get(
   '/github',
@@ -17,72 +18,11 @@ router.get(
   passport.authenticate('github', {
     failureRedirect: process.env.CLIENT_BASE_URL + '/login'
   }),
-  function (req, res) {
-    res.redirect(process.env.CLIENT_BASE_URL)
-  }
+  githubCallback
 )
 
-// router.get(
-//   '/github/callback',
-//   passport.authenticate('github', {
-//     failureRedirect: process.env.CLIENT_BASE_URL + '/login'
-//   }),
+router.get('/check', check)
 
-//   function (req, res) {
-//     const redirectTo = req.session.returnTo || '/'
-//     delete req.session.returnTo
-//     res.redirect(redirectTo)
-//   }
-// )
-
-router.get('/check', (req, res) => {
-  if (req.isAuthenticated()) {
-    res.send({ user: req.user })
-  } else {
-    res.send({ user: null })
-  }
-})
-
-router.get('/logout', (req, res) => {
-  req.session.destroy((err) => {
-    res.json({ message: 'Logged out' })
-  })
-})
+router.get('/logout', logout)
 
 export default router
-
-// import express from 'express'
-// import passport from 'passport'
-
-// const router = express.Router()
-
-// router.get(
-//   '/github',
-//   passport.authenticate('github', { scope: ['user:email'] })
-// )
-
-// router.get(
-//   '/github/callback',
-//   passport.authenticate('github', {
-//     failureRedirect: process.env.CLIENT_BASE_URL + '/login'
-//   }),
-//   function (req, res) {
-//     res.redirect(process.env.CLIENT_BASE_URL)
-//   }
-// )
-
-// router.get('/check', (req, res) => {
-//   if (req.isAuthenticated()) {
-//     res.send({ user: req.user })
-//   } else {
-//     res.send({ user: null })
-//   }
-// })
-
-// router.get('/logout', (req, res) => {
-//   req.session.destroy((err) => {
-//     res.json({ message: 'Logged out' })
-//   })
-// })
-
-// export default router
