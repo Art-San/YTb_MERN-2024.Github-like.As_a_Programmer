@@ -3,11 +3,9 @@ import passport from 'passport'
 
 const router = express.Router()
 
-// router.get('/login', (req, res) => {
-//   const resalt = req.isAuthenticated()
-//   console.log(1, 'res', resalt)
-//   res.send('You logger in')
-// })
+router.get('/login', (req, res) => {
+  res.send({ user: null })
+})
 
 router.get(
   '/github',
@@ -24,15 +22,18 @@ router.get(
   }
 )
 
-/*TODO: буду использовать для переадресации на предыдущий роут*/
-// app.get('/github/callback',
-//  passport.authenticate('github', { failureRedirect: '/login' }),
-//  function(req, res) {
-//     // Успешная аутентификация, перенаправление на сохраненный URL-адрес или домой, если не установлено.
+// router.get(
+//   '/github/callback',
+//   passport.authenticate('github', {
+//     failureRedirect: process.env.CLIENT_BASE_URL + '/login'
+//   }),
+
+//   function (req, res) {
 //     const redirectTo = req.session.returnTo || '/'
-//     delete req.session.returnTo; // Очищаем сохраненный URL после использования
-//     res.redirect(redirectTo);
-//  })
+//     delete req.session.returnTo
+//     res.redirect(redirectTo)
+//   }
+// )
 
 router.get('/check', (req, res) => {
   if (req.isAuthenticated()) {
