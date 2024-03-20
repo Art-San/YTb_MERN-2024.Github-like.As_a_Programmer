@@ -9,7 +9,7 @@ import { ensureAuthenticated } from '../middleware/ensureAuthenticated.js'
 const router = express.Router()
 
 router.get('/profile/:username', getUserProfileAndRepos)
-router.get('/likes', ensureAuthenticated, getLikes)
 router.post('/like/:username', ensureAuthenticated, likeProfile)
+router.get('/likes', ensureAuthenticated, getLikes)
 
 export default router
