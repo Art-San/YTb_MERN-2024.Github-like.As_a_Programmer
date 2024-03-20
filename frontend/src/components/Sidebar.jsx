@@ -6,6 +6,7 @@ import { PiSignInBold } from 'react-icons/pi'
 import { MdEditDocument } from 'react-icons/md'
 import Logout from './Logout'
 import { useAuthContext } from '../context/AuthContext'
+import Logout2 from './Logout2'
 
 const Sidebar = () => {
   const { authUser } = useAuthContext()
@@ -69,6 +70,11 @@ const Sidebar = () => {
         {authUser && (
           <div className="flex flex-col gap-2 mt-auto">
             <Logout />
+          </div>
+        )}
+        {true && (
+          <div className="flex flex-col gap-2 mt-auto">
+            <Logout2 />
           </div>
         )}
       </nav>
