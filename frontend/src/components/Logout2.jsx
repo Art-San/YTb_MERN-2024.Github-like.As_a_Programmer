@@ -10,8 +10,9 @@ const Logout2 = () => {
     try {
       const res = await fetch('/api/auth/check', { credentials: 'include' })
       const data = await res.json()
-      console.log(data)
+      console.log(2, data.user._id)
       toast.success(data.message)
+      toast.success(data.user._id)
       setAuthUser(null)
     } catch (error) {
       toast.error(error.message)
